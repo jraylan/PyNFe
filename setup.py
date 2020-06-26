@@ -5,7 +5,13 @@ try:  # for pip >= 10
 except ImportError:  # for pip <= 9.0.3
     from pip.req import parse_requirements as parse
 
-requirements = lambda f: [str(i.req) for i in parse(f, session=False)]
+def requirements(f):
+    list = None
+    try:
+        list = [str(i.req) for i in parse(f, session=False)]
+    except:
+        list = [str(i.requirement) for i in parse(f, session=False)]
+    return list
 
 setup(
     name='PyNFe',
